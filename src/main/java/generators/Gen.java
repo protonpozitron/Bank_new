@@ -2,6 +2,9 @@ package generators;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
+
+import static java.lang.System.*;
 
 public class Gen {
     final Random random = new Random();
@@ -25,6 +28,7 @@ public class Gen {
                 alphaNum.add(s);
             }
         }
+
         return alphaNum.toArray().toString();
 
     }

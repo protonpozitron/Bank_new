@@ -2,11 +2,12 @@ package steps;
 
 
 import elements.Headers;
-import elements.InputFields;
+import elements.Inputable;
 import io.cucumber.java.ru.И;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import types.Types;
+import types.Fields;
+import types.Header;
 import utils.SaveCache;
 import utils.AuthReader;
 
@@ -23,7 +24,7 @@ public class Auth_Steps {
 
     @И("открыта главная страница Интернет-банк")
     public void openBrowser() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Desktop\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Regina\\Desktop\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -32,15 +33,12 @@ public class Auth_Steps {
 
     @И("авторизоваться в системе, заполнив поля {string}, {string}")
     public void newAuth(String login, String pass) throws IOException {
-        try {
+
         AuthReader reader = new AuthReader();
-        new InputFields(driver).input(Types.LOGPASSINPUT,login, reader.readAuth(login));
-        new InputFields(driver).input(Types.LOGPASSINPUT,pass, reader.readAuth(pass));
+        new Inputable(driver).input(Fields.LOGPASSINPUT,login, reader.readAuth(login));
+        new Inputable(driver).input(Fields.LOGPASSINPUT,pass, reader.readAuth(pass));
         System.out.println("Config " + reader.readAuth(login));
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Элемент не найден на странице");
-        }
+
     }
 
     @И("подождать {int} секунд")
@@ -49,12 +47,9 @@ public class Auth_Steps {
     }
     @И("открыта страница {string}")
     public void nameCheck(String name) {
-        try {
-            new Headers(driver).isDisplayed(Types.HEADER,name);
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Элемент " + name + " не найден на странице");
-        }
+
+            new Headers(driver).isDisplayed(Header.HEADER,name);
+
     }
 
 

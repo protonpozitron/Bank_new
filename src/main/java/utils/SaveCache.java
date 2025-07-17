@@ -8,7 +8,7 @@ public class SaveCache {
 
     public SaveCache (int amount) {
         this.amount = amount;
-        newCache = new LinkedHashMap();
+        this.newCache = new LinkedHashMap();
     }
     public String getCache(String key) {
         Object o = newCache.get(key);
