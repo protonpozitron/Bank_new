@@ -4,13 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import types.Types;
 
+import java.time.Duration;
 
 
 public abstract class WebElems {
-    protected WebDriver driver = new ChromeDriver();
-    protected WebElement web;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
     public WebElems (WebDriver driver) {
         this.driver = driver;
@@ -30,11 +33,13 @@ public abstract class WebElems {
     }
 
     protected WebElement createElem(String path){
-       return driver.findElement(By.xpath(path));
+        return driver.findElement(By.xpath(path));
     }
     public void isDisplayed(Types type, String name) {
         newtypeCheck(type, name).isDisplayed();
     }
-    abstract void click(Types type, String name);
+    public  void click(Types type, String name){
+        newtypeCheck(type, name).click();
+    };
 
 }

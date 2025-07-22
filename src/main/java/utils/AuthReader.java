@@ -3,7 +3,6 @@ package utils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Map;
 
 public class AuthReader {
@@ -11,7 +10,7 @@ public class AuthReader {
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("application.yaml");
+                .getResourceAsStream("application.yml");
         Map<String, Object> obj = yaml.load(inputStream);
        return obj.get(key).toString();
     }

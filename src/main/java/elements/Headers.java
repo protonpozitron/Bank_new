@@ -12,10 +12,7 @@ public class Headers extends WebElems {
         super(driver);
     }
 
-    @Override
-    public void click(Types type, String name) {
-        newtypeCheck(type, name).click();
-    }
+
 
     protected String ge1tValue(String sentence) {
 
