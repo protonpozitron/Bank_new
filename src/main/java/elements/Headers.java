@@ -3,6 +3,7 @@ package elements;
 
 import org.openqa.selenium.WebDriver;
 import types.Types;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,10 +13,7 @@ public class Headers extends WebElems {
         super(driver);
     }
 
-
-
-    protected String ge1tValue(String sentence) {
-
+    protected String getfirstValue(String sentence) {
         String s = ".//tr/td['" + sentence + "']/descendant::span[@class='alias']";
         Pattern p = Pattern.compile("(?:<span class=\"alias\">)([^\\)]*)(?:<\\/span>)");
         Matcher m = p.matcher(s);

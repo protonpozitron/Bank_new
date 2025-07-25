@@ -1,9 +1,7 @@
 package generators;
 
-import java.util.ArrayList;
 
 public class Gen {
-    ArrayList<String> alphaNum = new ArrayList<String>();
     final String kir = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     final String lat = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
     final String num = "1234567890";
@@ -13,7 +11,7 @@ public class Gen {
     public String randomStrLat(int n) {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            s.append(kir.charAt(0 + (int) (Math.random() * kir.length())));
+            s.append(kir.charAt((int) (Math.random() * kir.length())));
         }
 
         return s.toString();
@@ -23,21 +21,21 @@ public class Gen {
     public String randomStrKir(int n) {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            s.append(lat.charAt(0 + (int) (Math.random() * lat.length())));
+            s.append(lat.charAt((int) (Math.random() * lat.length())));
         }
         return s.toString();
     }
     public String randomNum(int n) {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            s.append(num.charAt(0 + (int) (Math.random() * num.length())));
+            s.append(num.charAt((int) (Math.random() * num.length())));
         }
         return s.toString();
     }
     public String randomAll(int n) {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            s.append(allSymb.charAt(0 + (int) (Math.random() * allSymb.length())));
+            s.append(allSymb.charAt((int) (Math.random() * allSymb.length())));
         }
         return s.toString();
     }
