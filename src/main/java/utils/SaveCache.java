@@ -2,7 +2,6 @@ package utils;
 import java.util.LinkedHashMap;
 
 public class SaveCache {
-
     private LinkedHashMap newCache ;
     int amount;
 
@@ -22,6 +21,7 @@ public class SaveCache {
             System.out.println("Ключ = "+value);
         }
     }
+
 
 
     }

@@ -1,18 +1,19 @@
 package steps;
-import elements.Headers;
+
+import elements.Clickable;
 import elements.Inputable;
 import io.cucumber.java.ru.И;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import types.Fields;
 import types.Header;
-import utils.SaveCache;
 import utils.AuthReader;
+
 import java.time.Duration;
 
 
 public class Auth_Steps {
-  WebDriver driver= SetUp.getInstance().getDriver();
-
+    WebDriver driver = SetUp.getInstance().getDriver();
 
     @И("открыта главная страница Интернет-банк")
     public void openBrowser() {
@@ -36,7 +37,7 @@ public class Auth_Steps {
     @И("открыта страница {string}")
     public void nameCheck(String name) {
 
-        new Headers(driver).isDisplayed(Header.HEADER, name);
+        new Clickable(driver).isDisplayed(Header.HEADER, name);
 
     }
 

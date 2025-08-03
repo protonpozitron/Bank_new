@@ -1,6 +1,7 @@
 package elements;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import types.Fields;
 import types.Types;
 
@@ -11,33 +12,28 @@ public class Inputable extends WebElems {
         super(driver);
     }
 
+    public String getCache(Types type, Integer value) {
 
+            return newtypeCheck(type, value.toString()).getText();
+
+        }
 
     public void input(Types type, String name, String value) {
-        try {
-            newtypeCheck(type, name).sendKeys(value);
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Элемент " + name + " не найден на странице");
-        }
+   WebElement e = newtypeCheck(type, name);
+            e.click();
+            e.sendKeys(value);
+
     }
 
     public void clear(Types type, String name) {
-        try {
             newtypeCheck(type, name).clear();
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Элемент " + name + " не найден на странице");
-        }
+
     }
 
     public void isClear(Types type, String name) {
-        try {
+
             newtypeCheck(type, name).getText().isEmpty();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Поле " + name + " не найден на странице");
-        }
+
     }
 
     public Types checkInputType(String name) {
