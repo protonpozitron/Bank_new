@@ -14,5 +14,5 @@ utils для вспомогательных методов, которые не 
 
 Выполнить mvn test
 
-Затем запустить allure serve C:/путь к папке с результатми/allure-results в cmd
+Затем запустить allure serve C:/путь к папке с результатами/allure-results в cmd
 
