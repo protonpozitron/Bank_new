@@ -9,6 +9,10 @@ public class SaveCache {
         this.amount = amount;
         this.newCache = new LinkedHashMap();
     }
+    /**
+     * @param getCache отдает значение из putCache
+     * @return значение в виде строки
+     */
     public String getCache(String key) {
         Object o = newCache.get(key);
         if (newCache.get(key) == null) return "Такой элемент не сохранен в кэше.";
