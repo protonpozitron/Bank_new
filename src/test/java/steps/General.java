@@ -2,16 +2,14 @@ package steps;
 
 import elements.Clickable;
 import elements.Inputable;
+import elements.WebElems;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
-
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import types.Buttons;
 import types.Fields;
 import types.Header;
 import utils.SaveCache;
-
 import java.util.List;
 
 
@@ -69,7 +67,7 @@ public class General {
 
     @И("в переменную {string} внести значение из колонки в {int} строке")
     public void saveValue(String text, Integer value) {
-        saveCache.putCache(clickIt.getValue(Header.COLUMN, value));
+        saveCache.putCache(text,clickIt.getValue(Header.COLUMN, value));
     }
 
     @И("по {int} строке произвести клик")
@@ -80,5 +78,13 @@ public class General {
     @И("проверить, что присутсвуют поля:")
     public void fieldsCheck(List<String> fields) {
         clickIt.selectValue(fields);
+    }
+    @И("по полю ввода {string} произвести клик")
+    public void fieldsClick(String name) {
+        clickIt.click(Fields.INPUT, name);
+    }
+    @И("проверить, что красная подсветка поля {string} присутствует")
+    public void redCheck(String name) {
+        clickIt.isDisplayed(Fields.INPUTERROR,name);
     }
 }
