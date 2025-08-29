@@ -2,13 +2,15 @@ package steps;
 
 import elements.Clickable;
 import elements.Inputable;
-import elements.WebElems;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import types.Buttons;
 import types.Fields;
 import types.Header;
+import types.Modals;
 import utils.SaveCache;
 import java.util.List;
 
@@ -86,5 +88,14 @@ public class General {
     @И("проверить, что красная подсветка поля {string} присутствует")
     public void redCheck(String name) {
         clickIt.isDisplayed(Fields.INPUTERROR,name);
+    }
+
+    @И("присутствует модальное окно {string}")
+    public void windowDisplayed(String name){
+        clickIt.isDisplayed(Modals.WINDOW,name);
+    }
+    @И("нажать клавишу {string}")
+    public void pressKey(String name){
+        new Actions(driver).sendKeys(clickIt.clickKey(name));
     }
 }

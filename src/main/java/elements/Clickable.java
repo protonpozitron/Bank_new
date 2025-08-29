@@ -1,6 +1,7 @@
 package elements;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import types.Types;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
+
+import static org.openqa.selenium.Keys.*;
 
 public class Clickable extends WebElems {
 
@@ -44,5 +47,21 @@ public class Clickable extends WebElems {
             }
         }
         return isDisp;
+    }
+    public Keys clickKey(String name) {
+        try {
+            switch (name) {
+                case "ENTER":
+                    return ENTER;
+                case "SPACE":
+                    return SPACE;
+                case "ESCAPE":
+                    return ESCAPE;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
+        return null;
     }
 }
