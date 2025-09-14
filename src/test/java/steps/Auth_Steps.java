@@ -1,9 +1,9 @@
 package steps;
 
+import adapters.WebDriverAccess;
 import elements.Clickable;
 import elements.Inputable;
 import io.cucumber.java.ru.И;
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import types.Fields;
 import types.Header;
@@ -12,12 +12,19 @@ import utils.AuthReader;
 import java.time.Duration;
 
 
-public class Auth_Steps {
-    WebDriver driver = SetUp.getInstance().getDriver();
+public class Auth_Steps  {
+    WebDriver driver;
+    //  private WebDriverAccess adapter;
+    public Auth_Steps(WebDriverAccess adapter) {
+        this.driver=adapter.getDriverAccess();
+    }
 
     @И("открыта главная страница Интернет-банк")
     public void openBrowser() {
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://idemo.bspb.ru/");
+        driver.navigate().refresh();
     }
 
     @И("авторизоваться в системе, заполнив поля {string}, {string}")
@@ -37,7 +44,7 @@ public class Auth_Steps {
     @И("открыта страница {string}")
     public void nameCheck(String name) {
 
-        new Clickable(driver).isDisplayed(Header.HEADER, name);
+        new Clickable(driver).isDisplayed(Header.LABEL, name);
 
     }
 

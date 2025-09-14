@@ -9,10 +9,6 @@ import types.Fields;
 import types.Types;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Stream;
-
-import static org.openqa.selenium.Keys.*;
 
 public class Clickable extends WebElems {
 
@@ -27,8 +23,10 @@ public class Clickable extends WebElems {
     }
 
     public boolean istextDisplayed(String text) {
+        //return driver.findElement(By.xpath(text)).isDisplayed();
+        //      return driver.findElement(By.xpath(text)).isDisplayed();
+        return newtypeCheck(Fields.INPUT, text).isDisplayed();
 
-        return driver.findElement(By.xpath(text)).isDisplayed();
     }
 
     public boolean selectValue(List<String> fields) {
@@ -48,15 +46,15 @@ public class Clickable extends WebElems {
         }
         return isDisp;
     }
-    public Keys clickKey(String name) {
+    public CharSequence clickKey(String name) {
         try {
             switch (name) {
                 case "ENTER":
-                    return ENTER;
+                    return Keys.ENTER;
                 case "SPACE":
-                    return SPACE;
+                    return Keys.SPACE;
                 case "ESCAPE":
-                    return ESCAPE;
+                    return Keys.ESCAPE;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

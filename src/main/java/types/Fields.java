@@ -1,7 +1,7 @@
 package types;
 
 public enum Fields implements Types {
-    INPUT(".//div[contains(text(),'{{pattern}}')] | .//span[contains(text(),'{{pattern}}')]","ПОЛЕ"),
+    INPUT(".//div[contains(text(),'{{pattern}}')] | .//input[@placeholder='{{pattern}}']","ПОЛЕ"),
 
     LOGPASSINPUT(".//input[contains(@placeholder,'{{pattern}}')]", "ЛОГИНПАРОЛЬ"),
 

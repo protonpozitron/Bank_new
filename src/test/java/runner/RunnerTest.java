@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "steps",
-        tags = "@1",
+        tags ="@1 or @2",
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports",
@@ -21,6 +21,6 @@ import org.junit.runner.RunWith;
 public class RunnerTest {
         @Test
         public void runCucumber() {
-                // Этот метод останется пустым, Cucumber сам запустит тесты
+
         }
 }
