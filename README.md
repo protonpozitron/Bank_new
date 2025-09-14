@@ -6,7 +6,6 @@
 ![Selenium](https://img.shields.io/badge/Selenium-4-brightgreen?logo=selenium)  
 ![Cucumber](https://img.shields.io/badge/Cucumber-BDD-success?logo=cucumber)  
 ![Allure](https://img.shields.io/badge/Allure-Report-purple)  
-![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-blue?logo=githubactions)
 
 ---
 
@@ -28,8 +27,7 @@
 - Практика написания автотестов на Java.  
 - Тестирование UI с помощью Selenium WebDriver.  
 - Использование BDD-подхода (Cucumber + Gherkin).  
-- Интеграция с Allure для визуальных отчётов.  
-- Автоматический прогон тестов через GitHub Actions.
+- Интеграция с Allure для визуальных отчётов.
 
 ---
 
@@ -41,7 +39,6 @@
 - **Selenium WebDriver**  
 - **Cucumber (BDD)**  
 - **Allure Report**  
-- **GitHub Actions**
 
 ---
 
