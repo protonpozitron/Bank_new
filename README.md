@@ -24,7 +24,7 @@
 
 ## 🛠 Технологии
 
-- **Java 17**  
+- **Java **  
 - **Maven**  
 - **JUnit 5**  
 - **Selenium WebDriver**  
