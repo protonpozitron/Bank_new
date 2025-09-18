@@ -3,6 +3,7 @@ package elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import types.Fields;
@@ -57,9 +58,14 @@ public class Clickable extends WebElems {
                     return Keys.ESCAPE;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Кнопка отсутствует в методе");
 
         }
+
         return null;
+    }
+
+    public WebElement returnValue(Types type, String name) {
+        return newtypeCheck(type, name);
     }
 }

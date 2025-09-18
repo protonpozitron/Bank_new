@@ -21,8 +21,8 @@ public class SaveCache {
     public void putCache(String name,String value) {
         if (value == null) System.out.println("Значение отсутствует");
         else {
-            newCache.put(value, value);
-            System.out.println("Ключ = "+value);
+            newCache.put(name, value);
+            System.out.println("Ключ = "+name);
         }
     }
 

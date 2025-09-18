@@ -37,8 +37,9 @@ public class Auth_Steps  {
     }
 
     @И("подождать {int} секунд")
-    public void waiting(int duration) {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(duration));
+    public void waiting(int duration) throws InterruptedException {
+        Thread.sleep(Duration.ofSeconds(duration).toMillis());
+        //  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(duration)); не работает с remote driver
     }
 
     @И("открыта страница {string}")

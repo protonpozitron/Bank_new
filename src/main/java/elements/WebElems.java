@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import types.Types;
+import utils.SaveCache;
 
 import java.time.Duration;
 
@@ -50,12 +51,11 @@ public String getValue(Types type, Integer value) {
         System.out.println("Элемент не найден в таблице");
         return null;
     }
-
 }
 
-public String isItCache(String value) {
+public String isItCache(SaveCache cache,String value) {
     if (value.contains("!cache")) {
-        return value.substring(6);
+        return cache.getCache(value.substring(6,(value.length() - 1)));
     } else return value;
 }
 }

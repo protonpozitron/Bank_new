@@ -5,6 +5,8 @@ import elements.Clickable;
 import elements.Inputable;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import types.Buttons;
@@ -70,7 +72,7 @@ public class General {
 
     @И("присутствует текст {string}")
     public void textIsDisplayed(String text) {
-        clickIt.istextDisplayed(text);
+        clickIt.istextDisplayed(clickIt.isItCache(saveCache,text));
         // clickIt.istextDisplayed(clickIt.isItCache(text));
     }
 
@@ -106,7 +108,16 @@ public class General {
 
     @И("нажать клавишу {string}")
     public void pressKey(String name) {
-        //    builder.keyDown(clickIt.clickKey(name));
-        builder.sendKeys(clickIt.clickKey(name)).perform();
+        try {
+           builder.sendKeys(clickIt.clickKey(name)).perform();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript(
+                    "document.dispatchEvent(new KeyboardEvent('keydown', {'key':'"+name+"'}));");
+        }
+   }
+    @И("навести фокус на окно {string}")
+    public void focusWindow(String name) {
+        driver.switchTo().activeElement();
+        //clickIt.click(Modals.WINDOW, name);
     }
 }
