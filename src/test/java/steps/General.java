@@ -6,7 +6,6 @@ import elements.Inputable;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import types.Buttons;
@@ -20,7 +19,6 @@ import java.util.List;
 
 public class General {
     SaveCache saveCache = new SaveCache(4);
- //   private WebDriverAccess adapter;
     WebDriver driver;
     Clickable clickIt ;
     Inputable field;
@@ -73,11 +71,11 @@ public class General {
     @И("присутствует текст {string}")
     public void textIsDisplayed(String text) {
         clickIt.istextDisplayed(clickIt.isItCache(saveCache,text));
-        // clickIt.istextDisplayed(clickIt.isItCache(text));
     }
 
     @И("в переменную {string} внести значение из колонки в {int} строке")
     public void saveValue(String text, Integer value) {
+        System.out.println("Value = "+clickIt.getValue(Header.COLUMN, value));
         saveCache.putCache(text, clickIt.getValue(Header.COLUMN, value));
     }
 
@@ -86,7 +84,7 @@ public class General {
         clickIt.click(Header.COLUMN, value.toString());
     }
 
-    @И("проверить, что присутсвуют поля:")
+    @И("проверить, что присутствуют поля:")
     public void fieldsCheck(List<String> fields) {
         clickIt.selectValue(fields);
     }

@@ -45,6 +45,7 @@ public void isDisplayed(Types type, String name) {
 
 public String getValue(Types type, Integer value) {
     try {
+
         return newtypeCheck(type, value.toString()).getText();
     } catch (NullPointerException e) {
         System.out.println(e.getMessage());
@@ -55,7 +56,7 @@ public String getValue(Types type, Integer value) {
 
 public String isItCache(SaveCache cache,String value) {
     if (value.contains("!cache")) {
-        return cache.getCache(value.substring(6,(value.length() - 1)));
+        return cache.getCache(value.substring(7,(value.length() - 1)));
     } else return value;
 }
 }

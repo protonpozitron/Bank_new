@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import types.Fields;
+import types.Header;
 import types.Types;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class Clickable extends WebElems {
         boolean isDisp=true;
         for (String field : fields) {
             try {
-                if (newtypeCheck(Fields.INPUT, field).isDisplayed())
+                if (newtypeCheck(Header.LABEL, field).isDisplayed())
                 {
                     log.info(("Поле " + field + " присутствует"));
                 }else{

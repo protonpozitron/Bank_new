@@ -8,16 +8,19 @@ public class WebDriverAccess {
     public WebDriverAccess() {
 
     }
-
-    public void setDriver1() {
+    /**
+     * @param setDriver создает новый без указания локального браузера
+     */
+    public void setDriver() {
     driver.set(new ChromeDriver());
     }
-
+    /**
+     * @param setDriver отдает созданный браузер(используется в Auth_Steps и General
+     *                 для передачи значения браузера
+     */
     public WebDriver getDriverAccess(){
         if (driver.get() == null) {
-            //      WebDriverManager.chromedriver().setup();
-            //set(WebDriverFactory.createWebDriver("chrome")).;
-            driver.set(new ChromeDriver());
+            setDriver();
         }
         return driver.get();
     }
