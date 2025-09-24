@@ -8,6 +8,8 @@ import io.cucumber.java.ru.Тогда;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import types.Buttons;
 import types.Fields;
 import types.Header;
@@ -23,6 +25,7 @@ public class General {
     Clickable clickIt ;
     Inputable field;
     Actions builder;
+
     public General(WebDriverAccess adapter) {
         this.driver=adapter.getDriverAccess();
         this.clickIt = new Clickable(driver);
@@ -75,7 +78,6 @@ public class General {
 
     @И("в переменную {string} внести значение из колонки в {int} строке")
     public void saveValue(String text, Integer value) {
-        System.out.println("Value = "+clickIt.getValue(Header.COLUMN, value));
         saveCache.putCache(text, clickIt.getValue(Header.COLUMN, value));
     }
 
@@ -116,6 +118,21 @@ public class General {
     @И("навести фокус на окно {string}")
     public void focusWindow(String name) {
         driver.switchTo().activeElement();
-        //clickIt.click(Modals.WINDOW, name);
+    }
+
+    @Тогда("присутствует выпадающий список {string}")
+    public void listIsDisplayed(String arg0) {
+        field.isDisplayed(Fields.SELECTFIELD,arg0);
+
+    }
+
+    @И("в выпадающем списке {string} выбрать значение {string}")
+    public void chooseValue(String arg0, String arg1) {
+        field.clickAndPick(Fields.SELECTFIELD,arg0,arg1);
+    }
+
+    @Тогда("в поле {string} отображено {int} символов")
+    public void countSymb(String arg0,int count) {
+        field.countChar(Fields.INPUT,arg0,count);
     }
 }

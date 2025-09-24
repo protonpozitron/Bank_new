@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class Auth_Steps  {
     WebDriver driver;
-    //  private WebDriverAccess adapter;
+
     public Auth_Steps(WebDriverAccess adapter) {
         this.driver=adapter.getDriverAccess();
     }
@@ -32,7 +32,6 @@ public class Auth_Steps  {
         AuthReader reader = new AuthReader();
         new Inputable(driver).input(Fields.LOGPASSINPUT, login, reader.readAuth(login));
         new Inputable(driver).input(Fields.LOGPASSINPUT, pass, reader.readAuth(pass));
-        System.out.println("Config " + reader.readAuth(login));
 
     }
 
@@ -44,9 +43,7 @@ public class Auth_Steps  {
 
     @И("открыта страница {string}")
     public void nameCheck(String name) {
-
         new Clickable(driver).isDisplayed(Header.LABEL, name);
-
     }
 
 

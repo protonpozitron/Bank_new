@@ -15,7 +15,7 @@ public class SaveCache {
      */
     public String getCache(String key) {
         if (newCache.get(key) == null) return "Такой элемент не сохранен в кэше.";
-        else return newCache.get(key);
+        else  System.out.println("Значение ="+newCache.get(key)); return newCache.get(key);
     }
     public void putCache(String name,String value) {
         if (value == null) System.out.println("Значение отсутствует");

@@ -5,14 +5,12 @@ public enum Fields implements Types {
 
     LOGPASSINPUT(".//input[contains(@placeholder,'{{pattern}}')]", "ЛОГИНПАРОЛЬ"),
 
-    INPUTERROR("//label[normalize-space(.)='{{pattern}}' ]/following::input[1 and @class[contains(.,'error')]]", "");
+    INPUTERROR("//label[normalize-space(.)='{{pattern}}' ]/following::input[1 and @class[contains(.,'error')]]", ""),
+
+    SELECTFIELD(".//label[contains(.,'{{pattern}}')]/following::div/div[@class[contains(.,'btn-group ')]]","СПИСОК");
     private String title;
     private String name;
 
-    Fields(String title) {
-        this.title = title;
-        this.name = null;
-    }
 
     Fields(String title, String name) {
         this.title = title;

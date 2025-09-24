@@ -15,7 +15,7 @@ public class WebDriverAccess {
     driver.set(new ChromeDriver());
     }
     /**
-     * @param setDriver отдает созданный браузер(используется в Auth_Steps и General
+     * @param getDriverAccess отдает созданный браузер(используется в Auth_Steps и General
      *                 для передачи значения браузера
      */
     public WebDriver getDriverAccess(){

@@ -1,6 +1,5 @@
 package elements;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,48 +24,39 @@ public class Clickable extends WebElems {
     }
 
     public boolean istextDisplayed(String text) {
-        //return driver.findElement(By.xpath(text)).isDisplayed();
-        //      return driver.findElement(By.xpath(text)).isDisplayed();
-        return newtypeCheck(Fields.INPUT, text).isDisplayed();
+        return newtypeCheck(Header.LABEL, text).isDisplayed();
 
     }
 
     public boolean selectValue(List<String> fields) {
-        boolean isDisp=true;
+        boolean isDisp = true;
         for (String field : fields) {
             try {
-                if (newtypeCheck(Header.LABEL, field).isDisplayed())
-                {
+                if (newtypeCheck(Header.LABEL, field).isDisplayed()) {
                     log.info(("Поле " + field + " присутствует"));
-                }else{
+                } else {
                     isDisp = false;
                 }
-            } catch (Exception e) {
-                log.info(("Поле " + field + " отсутствует"));
-                isDisp = false;
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Поле " + field + " отсутствует" + e.getMessage(), e);
+
             }
         }
         return isDisp;
     }
+
     public CharSequence clickKey(String name) {
-        try {
-            switch (name) {
-                case "ENTER":
-                    return Keys.ENTER;
-                case "SPACE":
-                    return Keys.SPACE;
-                case "ESCAPE":
-                    return Keys.ESCAPE;
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Кнопка отсутствует в методе");
+        switch (name) {
+            case "ENTER":
+                return Keys.ENTER;
+            case "SPACE":
+                return Keys.SPACE;
+            case "ESCAPE":
+                return Keys.ESCAPE;
+            default:
+                var ex2 = new IllegalArgumentException("Кнопка не реализована в методе");
+                throw ex2;
 
         }
-
-        return null;
-    }
-
-    public WebElement returnValue(Types type, String name) {
-        return newtypeCheck(type, name);
     }
 }
