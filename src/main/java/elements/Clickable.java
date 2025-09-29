@@ -23,8 +23,8 @@ public class Clickable extends WebElems {
         newtypeCheck(type, name).click();
     }
 
-    public boolean istextDisplayed(String text) {
-        return newtypeCheck(Header.LABEL, text).isDisplayed();
+    public boolean istextDisplayed(Types type,String text) {
+        return newtypeCheck(type, text).isDisplayed();
 
     }
 

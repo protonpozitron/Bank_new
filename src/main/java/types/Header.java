@@ -1,7 +1,7 @@
 package types;
 
 public enum Header implements Types{
-    HEADER(".//div[contains(text(),'{{pattern}}')] | .//span[contains(text(),'{{pattern}}')]"),
+    HEADER(".//div[contains(text(),'{{pattern}}')] | .//span[contains(text(),'{{pattern}}')]| .//h2[contains(text(),'{{pattern}}')]"),
 
     LABEL(".//div[contains(text(),'{{pattern}}')] |.//span[contains(text(),'{{pattern}}')] | .//label[contains(text(),'{{pattern}}')] | .//h3[contains(text(),'{{pattern}}')]"),
 

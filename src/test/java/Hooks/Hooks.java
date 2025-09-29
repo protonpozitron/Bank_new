@@ -1,7 +1,9 @@
 package Hooks;
 import adapters.WebDriverAccess;
-import org.junit.After;
-import org.junit.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+
+
 
 public class Hooks {
     WebDriverAccess webDriverAccess;
@@ -9,6 +11,7 @@ public class Hooks {
      * @param setup создан для установки браузера,чтобы сработал параллельный запуск
      */
     @Before
+
     public void setup() {
        webDriverAccess.setDriver();
 

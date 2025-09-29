@@ -73,7 +73,7 @@ public class General {
 
     @И("присутствует текст {string}")
     public void textIsDisplayed(String text) {
-        clickIt.istextDisplayed(clickIt.isItCache(saveCache,text));
+        clickIt.istextDisplayed(Header.LABEL,clickIt.isItCache(saveCache,text));
     }
 
     @И("в переменную {string} внести значение из колонки в {int} строке")
@@ -134,5 +134,10 @@ public class General {
     @Тогда("в поле {string} отображено {int} символов")
     public void countSymb(String arg0,int count) {
         field.countChar(Fields.INPUT,arg0,count);
+    }
+
+    @И("присутствует заголовок {string}")
+    public void isItHeader(String text) {
+        clickIt.istextDisplayed(Header.HEADER,text);
     }
 }

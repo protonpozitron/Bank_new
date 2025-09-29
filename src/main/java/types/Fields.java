@@ -7,7 +7,7 @@ public enum Fields implements Types {
 
     INPUTERROR("//label[normalize-space(.)='{{pattern}}' ]/following::input[1 and @class[contains(.,'error')]]", ""),
 
-    SELECTFIELD(".//label[contains(.,'{{pattern}}')]/following::div/div[@class[contains(.,'btn-group ')]]","СПИСОК");
+    SELECTFIELD(".//label[contains(.,'{{pattern}}')]/following::div/div[@class[contains(.,'btn-group ')]] | .//li[contains(.,'{{pattern}}')]" ,"СПИСОК");
     private String title;
     private String name;
 
