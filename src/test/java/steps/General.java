@@ -5,32 +5,42 @@ import elements.Clickable;
 import elements.Inputable;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.core.har.Har;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v135.log.Log;
+import org.openqa.selenium.devtools.v137.network.Network;
 import org.openqa.selenium.interactions.Actions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import types.Buttons;
 import types.Fields;
 import types.Header;
 import types.Modals;
 import utils.SaveCache;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 public class General {
     SaveCache saveCache = new SaveCache(4);
     WebDriver driver;
-    Clickable clickIt ;
+    Clickable clickIt;
     Inputable field;
     Actions builder;
-
+    DevTools devTools;
+    BrowserMobProxy proxy = new BrowserMobProxyServer();
     public General(WebDriverAccess adapter) {
-        this.driver=adapter.getDriverAccess();
+        this.driver = adapter.getDriverAccess();
         this.clickIt = new Clickable(driver);
         this.field = new Inputable(driver);
         this.builder = new Actions(driver);
+        this.devTools = adapter.getDevTools();
     }
 
 
@@ -56,6 +66,11 @@ public class General {
         clickIt.click(Buttons.BUTTON, name);
     }
 
+    @И("нажать радиокнопку {string}")
+    public void clickRadio(String name) {
+        clickIt.click(Buttons.RADIO, name);
+    }
+
     @И("нажать кнопку c лого {string}")
     public void clickLogo(String name) {
         clickIt.click(Buttons.LOGO, name);
@@ -73,7 +88,7 @@ public class General {
 
     @И("присутствует текст {string}")
     public void textIsDisplayed(String text) {
-        clickIt.istextDisplayed(Header.LABEL,clickIt.isItCache(saveCache,text));
+        clickIt.istextDisplayed(Header.LABEL, clickIt.isItCache(saveCache, text));
     }
 
     @И("в переменную {string} внести значение из колонки в {int} строке")
@@ -109,12 +124,13 @@ public class General {
     @И("нажать клавишу {string}")
     public void pressKey(String name) {
         try {
-           builder.sendKeys(clickIt.clickKey(name)).perform();
+            builder.sendKeys(clickIt.clickKey(name)).perform();
         } catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript(
-                    "document.dispatchEvent(new KeyboardEvent('keydown', {'key':'"+name+"'}));");
+                    "document.dispatchEvent(new KeyboardEvent('keydown', {'key':'" + name + "'}));");
         }
-   }
+    }
+
     @И("навести фокус на окно {string}")
     public void focusWindow(String name) {
         driver.switchTo().activeElement();
@@ -122,22 +138,31 @@ public class General {
 
     @Тогда("присутствует выпадающий список {string}")
     public void listIsDisplayed(String arg0) {
-        field.isDisplayed(Fields.SELECTFIELD,arg0);
+        field.isDisplayed(Fields.SELECTFIELD, arg0);
 
     }
 
     @И("в выпадающем списке {string} выбрать значение {string}")
     public void chooseValue(String arg0, String arg1) {
-        field.clickAndPick(Fields.SELECTFIELD,arg0,arg1);
+        field.clickAndPick(Fields.SELECTFIELD, arg0, arg1);
     }
 
     @Тогда("в поле {string} отображено {int} символов")
-    public void countSymb(String arg0,int count) {
-        field.countChar(Fields.INPUT,arg0,count);
+    public void countSymb(String arg0, int count) {
+        sgetRequestetClickIt();
+        field.countChar(Fields.INPUT, arg0, count);
+
+    }
+
+    public void sgetRequestetClickIt() {
+        proxy.start(0);
+        proxy.newHar("https://idemo.bspb.ru/");
+        Har har = proxy.getHar();
+
     }
 
     @И("присутствует заголовок {string}")
     public void isItHeader(String text) {
-        clickIt.istextDisplayed(Header.HEADER,text);
+        clickIt.istextDisplayed(Header.HEADER, text);
     }
 }

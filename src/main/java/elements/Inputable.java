@@ -39,7 +39,7 @@ public class Inputable extends WebElems {
         e.click();
         Matcher lit = Pattern.compile("!random\\(([a-zA-Z]+)(\\d+)\\)").matcher(value);
         boolean litFound = lit.find();
-        if (value.startsWith("!random(.*)")) {
+        if (value.contains("!random")) {
             String generateLit = lit.group(1);
             int num= Integer.parseInt(lit.group(2));
             switch (generateLit) {
@@ -82,8 +82,9 @@ public class Inputable extends WebElems {
     public void clickAndPick(Types type, String name, String value) {
         try {
             newtypeCheck(type, name).click();
-                List<WebElement> options = (List<WebElement>) newtypeCheck(type, name);
+                List<WebElement> options = castWebToList(type, name);
             Thread.sleep(Duration.ofSeconds(5).toMillis());
+
             Iterator<WebElement> iter = options.iterator();
             while(iter.hasNext()) {
                 WebElement we = iter.next();
@@ -92,15 +93,6 @@ public class Inputable extends WebElems {
                     break;
                 }
             }
-
-//            for (WebElement op : options) {
-//                System.out.println("Начало цикла "+ op.getText());
-//                if(op.getText().equals(value)) {
-//                    System.out.println("Отображение значение в элементе "+ op.getText());
-//                    op.click();
-//                }
-//                else System.out.println("else Отображение значение в элементе "+ op.getText());
-//            }
         } catch (IllegalArgumentException e) {
             log.error("Значение " + value + " отсутствует");
             throw e;
@@ -109,8 +101,12 @@ public class Inputable extends WebElems {
         }
     }
 
+    public List<WebElement> castWebToList(Types type, String name){
+        return newtypeCheck(type, name).findElements(By.tagName("li"));
+    }
+
     public void countChar(Types type, String name, int value) {
-        Assertions.assertEquals(newtypeCheck(type, name).getText().length(), value, "Содержимое поля " + name + " не равно " + value + " символам.");
+        Assertions.assertEquals(newtypeCheck(type, name).getAttribute(name), value, "Содержимое поля " + name + " не равно " + value + " символам." + newtypeCheck(type, name).getText().length());
 
     }
 }

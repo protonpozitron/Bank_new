@@ -30,8 +30,6 @@ public abstract class WebElems {
             log.info("Элемент не найден: " + e.getMessage());
             throw new IllegalArgumentException(e);
         }
-
-
     }
 
     protected WebElement createElem(String path) {
