@@ -5,36 +5,32 @@ import elements.Clickable;
 import elements.Inputable;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.core.har.Har;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v135.log.Log;
 import org.openqa.selenium.devtools.v137.network.Network;
 import org.openqa.selenium.interactions.Actions;
-
 import types.Buttons;
 import types.Fields;
 import types.Header;
 import types.Modals;
 import utils.SaveCache;
-
-import java.util.HashMap;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class General {
-    SaveCache saveCache = new SaveCache(4);
+    public static SaveCache saveCache = new SaveCache(4);
     WebDriver driver;
     Clickable clickIt;
     Inputable field;
     Actions builder;
     DevTools devTools;
-    BrowserMobProxy proxy = new BrowserMobProxyServer();
+    private final AtomicReference<String> parameter = new AtomicReference<>();//для потокобезопасноcти
     public General(WebDriverAccess adapter) {
         this.driver = adapter.getDriverAccess();
         this.clickIt = new Clickable(driver);
@@ -44,12 +40,20 @@ public class General {
     }
 
 
-    @И("в поле ввода {string} ввести значение {string}")
-    public void inputValue(String name, String value) {
+    @И("в поле ввода {string} ввести значение {string} с перехватом")
+    public void inputValueNetwork(String name, String value) throws InterruptedException {
+        sgetRequestetClickIt();
         field.input(Fields.INPUT, name, value);
+        Thread.sleep(1500);
+       saveCache.putCache("query", this.parameter.get());
+
     }
 
+    @И("в поле ввода {string} ввести значение {string}")
+    public void inputValue(String name, String value) throws InterruptedException {
+        field.input(Fields.INPUT, name, value);
 
+    }
     @И("^очистить поле \"([^\"]*)\"$")
     public void clearValue(String name) {
         field.clear(field.checkInputType(name), name);
@@ -108,6 +112,7 @@ public class General {
 
     @И("по полю ввода {string} произвести клик")
     public void fieldsClick(String name) {
+
         clickIt.click(Fields.INPUT, name);
     }
 
@@ -149,20 +154,40 @@ public class General {
 
     @Тогда("в поле {string} отображено {int} символов")
     public void countSymb(String arg0, int count) {
-        sgetRequestetClickIt();
-        field.countChar(Fields.INPUT, arg0, count);
+
+        String value = saveCache.getCache("query");
+        System.out.println("Проверка значения из запроса: "+ value);
+        Assertions.assertEquals(count,value.length());
 
     }
 
-    public void sgetRequestetClickIt() {
-        proxy.start(0);
-        proxy.newHar("https://idemo.bspb.ru/");
-        Har har = proxy.getHar();
+    public void sgetRequestetClickIt() {//пока для одного поля,потом сделаю
+        devTools.addListener(Network.requestWillBeSent(), // cлушатель для события,которое происходит перед отправкой запроса
+                requestSent -> {
+                    String url = requestSent.getRequest().getUrl();
+                    String urlEndPoint = "/suggest-by-name";
 
+                    if (url.contains(urlEndPoint )) {
+                        try {//слушатель для перехвата запроса
+                            URI uri = new URI(url);//парсинг url
+                            String queryString = uri.getQuery();//берем эндпоинт
+                            if (queryString != null && queryString.contains("q=")) {
+                                String value = URLDecoder.decode(queryString.split("q=")[1].split("&")[0],
+                                        StandardCharsets.UTF_8.name());//декодирование значения
+                                parameter.set(value);
+                                System.out.println("Отобажение значения value "+value);
+                                // saveCache.putCache("query",value);
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
-    @И("присутствует заголовок {string}")
-    public void isItHeader(String text) {
-        clickIt.istextDisplayed(Header.HEADER, text);
+        @И("присутствует заголовок {string}")
+        public void isItHeader (String text){
+            clickIt.istextDisplayed(Header.HEADER, text);
+        }
     }
-}
+

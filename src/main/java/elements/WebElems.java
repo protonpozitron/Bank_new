@@ -60,7 +60,6 @@ public String getValue(Types type, Integer value) {
 
 public String isItCache(SaveCache cache,String value) {
     if (value.contains("!cache")) {
-        System.out.println("Значение без !cache "+value.substring(7,(value.length() - 1)));
         return cache.getCache(value.substring(7,(value.length() - 1)));
     } else return value;
 }

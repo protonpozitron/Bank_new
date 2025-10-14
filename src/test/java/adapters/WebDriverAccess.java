@@ -3,10 +3,15 @@ package adapters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v137.network.Network;
+
+import java.util.Optional;
 
 public class WebDriverAccess {
     private ThreadLocal<ChromeDriver> driver = new ThreadLocal<>();
-    DevTools devTools;
+    private ThreadLocal<DevTools> devTools = new ThreadLocal<>();
+
     public WebDriverAccess() {
 
     }
@@ -27,16 +32,28 @@ public class WebDriverAccess {
         }
         return driver.get();
     }
+    /**
+     * * @param getDevTools() возвращает DevTools-сессию.
+     */
     public DevTools getDevTools() {
-        if (devTools == null) {
-            devTools = driver.get().getDevTools();
+        if (devTools.get() == null) {
+            //Создание сессии
+            DevTools tools = ((HasDevTools) getDriverAccess()).getDevTools();
+            tools.createSession();
+            //включается мониторинг сети
+            tools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+
+            devTools.set(tools);
         }
-        return devTools;
+        return devTools.get();
     }
-    public void close()
-    {
-        if (driver.get() == null)
-        {
+    public void close() {
+        if (driver.get() != null) {
+            if (devTools.get() != null) {
+                devTools.get().send(Network.disable());
+                devTools.get().close();
+                devTools.remove();
+            }
             driver.get().quit();
             driver.remove();
         }
