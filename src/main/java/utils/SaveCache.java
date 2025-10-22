@@ -10,7 +10,7 @@ public class SaveCache {
         this.newCache = new HashMap();
     }
     /**
-     * @param getCache отдает значение из putCache
+     * param getCache отдает значение из putCache
      * @return значение в виде строки
      */
     public String getCache(String key) {
