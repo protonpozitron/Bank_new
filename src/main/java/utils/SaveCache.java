@@ -1,13 +1,13 @@
 package utils;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 public class SaveCache {
-    private LinkedHashMap<String, String> newCache ;
+    private HashMap<String, String> newCache ;
     int amount;
 
     public SaveCache (int amount) {
         this.amount = amount;
-        this.newCache = new LinkedHashMap();
+        this.newCache = new HashMap();
     }
     /**
      * @param getCache отдает значение из putCache

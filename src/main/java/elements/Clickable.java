@@ -24,6 +24,7 @@ public class Clickable extends WebElems {
     public boolean istextDisplayed(Types type,String text) {
         return newtypeCheck(type, text).isDisplayed();
 
+
     }
 
     public boolean selectValue(List<String> fields) {

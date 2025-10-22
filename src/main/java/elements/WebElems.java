@@ -16,10 +16,11 @@ import java.time.Duration;
 
 public abstract class WebElems {
     protected WebDriver driver;
-    protected WebDriverWait waiter = new WebDriverWait(driver, Duration.ofSeconds(10));
+    protected WebDriverWait waiter;
     private static final Logger log = LoggerFactory.getLogger(Clickable.class);
     public WebElems(WebDriver driver) {
         this.driver = driver;
+        this.waiter = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     }
 
