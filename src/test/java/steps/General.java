@@ -44,8 +44,15 @@ public class General {
     public void inputValueNetwork(String name, String value) throws InterruptedException {
         sgetRequestetClickIt();
         field.input(Fields.INPUT, name, value);
-        Thread.sleep(1500);
-       saveCache.putCache("query", this.parameter.get());
+        Thread.sleep(7000);
+        String actualQuery =parameter.get();
+        if (actualQuery != null) {
+            // Только если перехват сработал, сохраняем в SaveCache
+            saveCache.putCache("query", actualQuery);
+        } else {
+            // Ошибка, если перехват не сработал.
+            throw new RuntimeException("Перехват запроса suggest-by-name не произошел.");
+        }
 
     }
 
