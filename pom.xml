@@ -83,6 +83,11 @@
             <version>2.1.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-devtools-v142</artifactId>
+            <version>4.38.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

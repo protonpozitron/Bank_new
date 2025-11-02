@@ -30,8 +30,8 @@ public class Auth_Steps  {
     @И("авторизоваться в системе, заполнив поля {string}, {string}")
     public void newAuth(String login, String pass) {
         AuthReader reader = new AuthReader();
-        new Inputable(driver).input(Fields.LOGPASSINPUT, login, reader.readAuth(login));
-        new Inputable(driver).input(Fields.LOGPASSINPUT, pass, reader.readAuth(pass));
+        new Inputable(driver).input(Fields.LOGPASSINPUT, login, reader.readAuth().getLogin());
+        new Inputable(driver).input(Fields.LOGPASSINPUT, pass, reader.readAuth().getPassword());
 
     }
 

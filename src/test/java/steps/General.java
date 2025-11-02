@@ -21,6 +21,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class General {
@@ -30,7 +31,8 @@ public class General {
     Inputable field;
     Actions builder;
     DevTools devTools;
-    private final AtomicReference<String> parameter = new AtomicReference<>();//для потокобезопасноcти
+    private final AtomicReference<String> parameter = new AtomicReference<>();
+    private String newParameter;//для потокобезопасноcти
     public General(WebDriverAccess adapter) {
         this.driver = adapter.getDriverAccess();
         this.clickIt = new Clickable(driver);
@@ -174,7 +176,7 @@ public class General {
                     String url = requestSent.getRequest().getUrl();
                     String urlEndPoint = "/suggest-by-name";
 
-                    if (url.contains(urlEndPoint )) {
+                    if (url.contains(urlEndPoint)) {
                         try {//слушатель для перехвата запроса
                             URI uri = new URI(url);//парсинг url
                             String queryString = uri.getQuery();//берем эндпоинт
@@ -182,6 +184,7 @@ public class General {
                                 String value = URLDecoder.decode(queryString.split("q=")[1].split("&")[0],
                                         StandardCharsets.UTF_8.name());//декодирование значения
                                 parameter.set(value);
+                                newParameter=value;
                                 System.out.println("Отобажение значения value "+value);
                                 // saveCache.putCache("query",value);
                             }
