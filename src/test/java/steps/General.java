@@ -20,9 +20,6 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.ReentrantLock;
-
 
 public class General {
     public static SaveCache saveCache = new SaveCache(4);
@@ -31,7 +28,7 @@ public class General {
     Inputable field;
     Actions builder;
     DevTools devTools;
-    private final AtomicReference<String> parameter = new AtomicReference<>();
+
     private String newParameter;//для потокобезопасноcти
     public General(WebDriverAccess adapter) {
         this.driver = adapter.getDriverAccess();
@@ -46,13 +43,10 @@ public class General {
     public void inputValueNetwork(String name, String value) throws InterruptedException {
         sgetRequestetClickIt();
         field.input(Fields.INPUT, name, value);
-        Thread.sleep(7000);
-        String actualQuery =parameter.get();
-        if (actualQuery != null) {
-            // Только если перехват сработал, сохраняем в SaveCache
-            saveCache.putCache("query", actualQuery);
+        Thread.sleep(9000);
+            if( newParameter!= null){
+            saveCache.putCache("query", newParameter);
         } else {
-            // Ошибка, если перехват не сработал.
             throw new RuntimeException("Перехват запроса suggest-by-name не произошел.");
         }
 
@@ -183,10 +177,9 @@ public class General {
                             if (queryString != null && queryString.contains("q=")) {
                                 String value = URLDecoder.decode(queryString.split("q=")[1].split("&")[0],
                                         StandardCharsets.UTF_8.name());//декодирование значения
-                                parameter.set(value);
+
                                 newParameter=value;
-                                System.out.println("Отобажение значения value "+value);
-                                // saveCache.putCache("query",value);
+                                System.out.println("Отобажение значения value "+newParameter);
                             }
                         } catch (Exception e) {
 
